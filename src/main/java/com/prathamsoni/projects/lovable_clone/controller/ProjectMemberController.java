@@ -42,19 +42,16 @@ public class ProjectMemberController {
             @RequestBody UpdateMemberRoleRequest request
     ) {
         Long userId = 1L;
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                projectMemberService.updateMemberRole(projectId, memberId, request, userId)
-        );
+        return ResponseEntity.ok(projectMemberService.updateMemberRole(projectId, memberId, request, userId));
     }
 
     @DeleteMapping("/{memberId}")
-    public ResponseEntity<MemberResponse> deleteMember(
+    public ResponseEntity<Void> removeMember(
             @PathVariable Long projectId,
             @PathVariable Long memberId
     ) {
         Long userId = 1L;
-        return ResponseEntity.status(HttpStatus.CREATED).body(
-                projectMemberService.deleteProjectMember(projectId, memberId, userId)
-        );
+        projectMemberService.removeProjectMember(projectId, memberId, userId);
+        return ResponseEntity.noContent().build();
     }
 }
